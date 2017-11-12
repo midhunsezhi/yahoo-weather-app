@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 function getWeatherDataByCity(city, success) {
     return _fetchWithParams('/v1/public/yql', {
         queryParams: {
@@ -7,6 +9,7 @@ function getWeatherDataByCity(city, success) {
         }
     }).then(_checkStatus)
     .then(_parseJSON)
+    .then(_formatData)
     .then(success);
 }
 
@@ -22,8 +25,6 @@ function _fetchWithParams(url, options={}) {
         url += (url.indexOf('?') === -1 ? '?' : '&') + _queryParams(options.queryParams);
         delete options.queryParams;
     }
-
-    console.log(url);
 
     return fetch(url, options);
 }
@@ -52,6 +53,45 @@ function _checkStatus(response) {
 
 function _parseJSON(response) {
     return response.json();
+}
+
+function _formatData(response) {
+    let data, cleanData, forecast;
+
+    if(response.query && response.query.count) {
+        cleanData = {};
+        data = response.query.results.channel;
+        forecast = data.item.forecast;
+
+        cleanData.location = [data.location.city, data.location.region, data.location.country].join(', ');
+        cleanData.today = _todayWeather(data.item.condition, data.astronomy, forecast[0]);
+        cleanData.forecast = _forecastWeather(forecast.slice(1));
+    }
+
+    return cleanData;
+}
+
+function _todayWeather(condition, astronomy, currentDayForecast) {
+    return {
+        date: moment().format('dddd, MMMM Do YYYY'),
+        temp: condition.temp,
+        description: condition.text,
+        sunrise: astronomy.sunrise,
+        sunset: astronomy.sunset,
+        high: currentDayForecast.high,
+        low: currentDayForecast.low
+    }
+}
+
+function _forecastWeather(forecast) {
+    return forecast.map((thisDay) => (
+        {
+            date: moment(thisDay.date, 'DD MMM YYYY').format('dddd, MMMM Do YYYY'),
+            high: thisDay.high,
+            low: thisDay.low,
+            description: thisDay.text
+        }
+    ));
 }
   
 export {getWeatherDataByCity};
