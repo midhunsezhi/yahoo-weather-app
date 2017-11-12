@@ -2,6 +2,7 @@
   "name": "yahoo-weather-app",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://query.yahooapis.com/",
   "dependencies": {
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
