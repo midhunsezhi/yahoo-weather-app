@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
-import {getWeatherDataByCity} from './Client.js';
+import './../App.css';
+import {getWeatherDataByCity} from './../Client.js';
+import SelectCity from './SelectCity.js';
+import TodayCard from './TodayCard.js';
+import ForecastList from './ForecastList.js';
 
 class App extends Component {
   state = {
@@ -9,10 +12,9 @@ class App extends Component {
   componentDidMount() {
     getWeatherDataByCity('san diego', (result) => {
       this.setState({
-        weatherData: JSON.stringify(result)
+        ...result
       });
-      console.log(result);
-    })
+    });
   }
   render() {
     return (
@@ -20,7 +22,14 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Yahoo! Weather App</h1>
         </header>
-        <p>{this.state.weatherData}</p>
+        <SelectCity />
+        <h2>{this.state.location}</h2>
+        <TodayCard 
+          today={this.state.today}
+        />
+        <ForecastList 
+          forecast={this.state.forecast}
+        />
       </div>
     );
   }
