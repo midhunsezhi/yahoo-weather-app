@@ -8,13 +8,21 @@ const cities = [
         'name': 'San Francisco, CA'
     },
     {
-        'key': 'BNG',
+        'key': 'BENGALURU',
         'name': 'Bengaluru, KA'
     },
     {
         'key': 'NYC',
         'name': 'New York, NY'
     },
+    {
+        'key': 'BEIJING',
+        'name': 'Beijing, China'
+    },
+    {
+        'key': 'PARIS',
+        'name': 'Paris'
+    }
 ];
 
 export {

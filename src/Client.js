@@ -1,11 +1,13 @@
 import moment from 'moment';
+import {cities} from './Constants.js';
 
 function getDefaultData(success) {
-    const city = getSelectedState();
+    const city = _getSelectedCity();
     return getWeatherDataByCity(city, success);
 }
 
 function getWeatherDataByCity(city, success) {
+    _setSelectedCity(city);
     return _fetchWithParams('/v1/public/yql', {
         queryParams: {
             q: _buildYqlQuery(city),
@@ -16,6 +18,14 @@ function getWeatherDataByCity(city, success) {
     .then(_parseJSON)
     .then(_formatData)
     .then(success);
+}
+
+function _getSelectedCity() {
+    return window.localStorage.getItem('weatherApp.selectedCity') || 'San Diego, CA';
+}
+
+function _setSelectedCity(city) {
+    window.localStorage.setItem('weatherApp.selectedCity', city);
 }
 
 function _fetchWithParams(url, options={}) {
@@ -69,7 +79,7 @@ function _formatData(response) {
         data = response.query.results.channel;
         forecast = data.item.forecast;
 
-        cleanData.location = [data.location.city, data.location.region, data.location.country].join(', ');
+        cleanData.selectedCity = _getSelectedCity();
         cleanData.today = _todayWeather(data.item.condition, data.astronomy, forecast[0]);
         cleanData.forecast = _forecastWeather(forecast.slice(1));
     }

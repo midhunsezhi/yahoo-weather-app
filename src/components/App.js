@@ -7,9 +7,9 @@ import ForecastList from './ForecastList.js';
 
 class App extends Component {
   state = {
-    location: '',
-    today: {},
-    forecast:[]
+    today: '',
+    forecast:[],
+    selectedCity: ''
   }
   componentDidMount() {
     getDefaultData(result => {
@@ -18,13 +18,24 @@ class App extends Component {
       });
     });
   }
+
+  handleChange = (city) => {
+    getWeatherDataByCity(city, result => {
+      this.setState({
+        ...result,
+      });
+    })
+  }
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Yahoo! Weather App</h1>
         </header>
-        <SelectCity />
+        <SelectCity 
+          selectedCity={this.state.selectedCity}
+          onCityChange={this.handleChange}
+        />
         <TodayCard 
           today={this.state.today}
         />
