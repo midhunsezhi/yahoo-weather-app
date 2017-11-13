@@ -17,7 +17,7 @@ class TodayCard extends Component {
                                     <p className="card-text text-muted">Low: {this.props.today.low}</p>
                                 </div>
                                 <div className='col-sm-4'>
-                                    <h1>{this.props.today.temp} <small >&deg;F</small></h1>
+                                    <h1>{this.props.today.temp} <small>&deg;F</small></h1>
                                 </div>
                                 <div className='col-sm-4'>
                                     <p className="card-text text-muted">Sunrise: {this.props.today.sunrise}</p>
