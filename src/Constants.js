@@ -1,8 +1,7 @@
 const cities = [
     {
         'key': 'SAN',
-        'name': 'San Diego, CA',
-        'isDefault': true,
+        'name': 'San Diego, CA'
     },
     {
         'key': 'SFO',

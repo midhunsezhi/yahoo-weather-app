@@ -1,5 +1,10 @@
 import moment from 'moment';
 
+function getDefaultData(success) {
+    const city = getSelectedState();
+    return getWeatherDataByCity(city, success);
+}
+
 function getWeatherDataByCity(city, success) {
     return _fetchWithParams('/v1/public/yql', {
         queryParams: {
@@ -56,10 +61,11 @@ function _parseJSON(response) {
 }
 
 function _formatData(response) {
-    let data, cleanData, forecast;
+    let data, 
+    cleanData={}, 
+    forecast;
 
     if(response.query && response.query.count) {
-        cleanData = {};
         data = response.query.results.channel;
         forecast = data.item.forecast;
 
@@ -94,4 +100,7 @@ function _forecastWeather(forecast) {
     ));
 }
   
-export {getWeatherDataByCity};
+export {
+    getDefaultData,
+    getWeatherDataByCity,
+};

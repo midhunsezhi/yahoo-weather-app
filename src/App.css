@@ -4,11 +4,16 @@
 
 .App-header {
   background-color: #222;
-  height: 50px;
+  height: 70px;
   padding: 20px;
   color: white;
+  margin-bottom: 10px;
 }
 
 .App-title {
   font-size: 1.5em;
+}
+
+.card {
+  margin: 10px;
 }
