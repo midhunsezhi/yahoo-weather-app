@@ -1,5 +1,4 @@
 import moment from 'moment';
-import {cities} from './Constants.js';
 
 function getDefaultData(success) {
     const city = _getSelectedCity();
@@ -110,7 +109,9 @@ function _forecastWeather(forecast) {
     ));
 }
   
-export {
+const Client = {
     getDefaultData,
     getWeatherDataByCity,
 };
+
+export default Client;

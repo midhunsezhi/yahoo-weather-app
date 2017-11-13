@@ -3,11 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "https://query.yahooapis.com/",
+  "devDependencies": {
+    "enzyme": "3.1.0",
+    "enzyme-adapter-react-16": "1.0.1",
+    "react-scripts": "1.0.14",
+    "react-test-renderer": "16.0.0"
+  },
   "dependencies": {
     "moment": "^2.19.2",
     "react": "^16.1.0",
-    "react-dom": "^16.1.0",
-    "react-scripts": "1.0.17"
+    "react-dom": "^16.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

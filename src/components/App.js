@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './../App.css';
-import {getWeatherDataByCity, getDefaultData} from './../Client.js';
+import Client from './../Client.js';
 import SelectCity from './SelectCity.js';
 import TodayCard from './TodayCard.js';
 import ForecastList from './ForecastList.js';
@@ -12,7 +12,7 @@ class App extends Component {
     selectedCity: ''
   }
   componentDidMount() {
-    getDefaultData(result => {
+    Client.getDefaultData(result => {
       this.setState({
         ...result
       });
@@ -20,7 +20,7 @@ class App extends Component {
   }
 
   handleChange = (city) => {
-    getWeatherDataByCity(city, result => {
+    Client.getWeatherDataByCity(city, result => {
       this.setState({
         ...result,
       });
